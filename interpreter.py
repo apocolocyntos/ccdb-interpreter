@@ -82,12 +82,12 @@ def interpret_orca(log_file):
     # free enthalpy
     if value == "Final" and output[index+1] == "Gibbs" and output[index+2] == "free" and output[index+3] == "enthalpy":
       thermochemistry['G'] = float(output[index+5])
-    # frequencies
-    # vibrational
-    if value == "VIBRATIONAL" and output[index+1] == "FREQUENCIES":
-      for j in range(0,number_of_atoms*3):
-        if output[(j*3)+(index+4)] != "0.00":
-          vib_frequencies.append(float(output[(j*3)+(index+4)]))
+    # # frequencies
+    # # vibrational
+    # if value == "VIBRATIONAL" and output[index+1] == "FREQUENCIES":
+    #   for j in range(0,number_of_atoms*3):
+    #     if output[(j*3)+(index+4)] != "0.00":
+    #       vib_frequencies.append(float(output[(j*3)+(index+4)]))
   if thermochemistry != dict():
     results['thermochemistry'] = thermochemistry
   if vib_frequencies != []:
@@ -132,16 +132,16 @@ utc_datetime = datetime.datetime.utcnow()
 
 
 while True:
-  
+
   calculation_interpreted = False
   finished_calculations = get_finished_calculations(db)
-  
+
   # check for new jobs
-  
+
   if len(finished_calculations) == 0:
     print "no calculation finished"
     time.sleep(10)
-  
+
   else:
     for doc in finished_calculations:
       print doc['_id']
